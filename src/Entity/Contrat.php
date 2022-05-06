@@ -61,6 +61,9 @@ class Contrat
     #[ORM\Column(type: 'array')]
     private $TeamExperts = [];
 
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contrats')]
+    private $client;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -254,6 +257,18 @@ class Contrat
     public function setTeamExperts(array $TeamExperts): self
     {
         $this->TeamExperts = $TeamExperts;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
