@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contrat index{% endblock %}
+
+{% block body %}
+    <h1>Contrat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Num_Contrat</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Nombre_H_totale</th>
+                <th>Nombre_H_restant</th>
+                <th>Etat_contrat</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Forfait</th>
+                <th>Frais_transport</th>
+                <th>Type</th>
+                <th>Num_Contrat_Cadre</th>
+                <th>Nb_expert_jours</th>
+                <th>Homme_Jours_Experts</th>
+                <th>TeamExperts</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contrat in contrats %}
+            <tr>
+                <td>{{ contrat.id }}</td>
+                <td>{{ contrat.Name }}</td>
+                <td>{{ contrat.NumContrat }}</td>
+                <td>{{ contrat.start ? contrat.start|date('Y-m-d') : '' }}</td>
+                <td>{{ contrat.end ? contrat.end|date('Y-m-d') : '' }}</td>
+                <td>{{ contrat.nombreHTotale }}</td>
+                <td>{{ contrat.nombreHRestant }}</td>
+                <td>{{ contrat.etatContrat }}</td>
+                <td>{{ contrat.description }}</td>
+                <td>{{ contrat.prix }}</td>
+                <td>{{ contrat.forfait }}</td>
+                <td>{{ contrat.fraisTransport }}</td>
+                <td>{{ contrat.type ? contrat.type|join(', ') : '' }}</td>
+                <td>{{ contrat.NumContratCadre }}</td>
+                <td>{{ contrat.NbExpertJours }}</td>
+                <td>{{ contrat.HommeJoursExperts }}</td>
+                <td>{{ contrat.TeamExperts ? contrat.TeamExperts|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_contrat_show', {'id': contrat.id}) }}">show</a>
+                    <a href="{{ path('app_contrat_edit', {'id': contrat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contrat_new') }}">Create new</a>
+{% endblock %}
