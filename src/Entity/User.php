@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"expert"="Expert", "financier"="Financier"})
  */
-abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

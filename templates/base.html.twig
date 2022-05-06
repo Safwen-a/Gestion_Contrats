@@ -17,7 +17,7 @@
         {% endblock %}
     </head>
     <body>
-    {% if app.user %}
+    
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -33,13 +33,17 @@
           <a class="nav-link" href="#">Link</a>
         </li>
       </ul>
+      {% if app.user %}
     <span class="navbar-text">        
       You are logged in as {{ app.user.userIdentifier }}, <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Logout</a>
     </span>
+    {% else %}
+    <button class="btn btn-outline-success"><a href="{{ path('app_login') }}">Login</a></button>
+    {% endif %}
     </div>
   </div>
 </nav>
-{% endif %}
+
         {% block body %}{% endblock %}
     </body>
 </html>
