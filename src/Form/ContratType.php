@@ -28,6 +28,7 @@ class ContratType extends AbstractType
             ->add('Nb_expert_jours')
             ->add('Homme_Jours_Experts')
             ->add('TeamExperts')
+            ->add('client')
         ;
     }
 
