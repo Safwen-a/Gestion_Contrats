@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExpertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExpertRepository::class)]
@@ -27,6 +29,14 @@ class Expert extends User
 
     #[ORM\Column(type: 'integer')]
     private $Tel;
+
+    #[ORM\OneToMany(mappedBy: 'Expert', targetEntity: FicheIntervention::class)]
+    private $Fiches_Intervention;
+
+    public function __construct()
+    {
+        $this->Fiches_Intervention = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class Expert extends User
     public function setTel(int $Tel): self
     {
         $this->Tel = $Tel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FicheIntervention>
+     */
+    public function getFichesIntervention(): Collection
+    {
+        return $this->Fiches_Intervention;
+    }
+
+    public function addFichesIntervention(FicheIntervention $fichesIntervention): self
+    {
+        if (!$this->Fiches_Intervention->contains($fichesIntervention)) {
+            $this->Fiches_Intervention[] = $fichesIntervention;
+            $fichesIntervention->setExpert($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichesIntervention(FicheIntervention $fichesIntervention): self
+    {
+        if ($this->Fiches_Intervention->removeElement($fichesIntervention)) {
+            // set the owning side to null (unless already changed)
+            if ($fichesIntervention->getExpert() === $this) {
+                $fichesIntervention->setExpert(null);
+            }
+        }
 
         return $this;
     }
