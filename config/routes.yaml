@@ -1,7 +1,9 @@
 controllers:
     resource: ../src/Controller/
     type: annotation
-
+home:
+    path:       /
+    controller: App\Controller\SecurityController::login
 kernel:
     resource: ../src/Kernel.php
     type: annotation
