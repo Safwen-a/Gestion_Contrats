@@ -272,4 +272,5 @@ class Contrat
 
         return $this;
     }
+   
 }
