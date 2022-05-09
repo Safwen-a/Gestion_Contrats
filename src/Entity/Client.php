@@ -24,7 +24,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $Nom_charge_dossier;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text', length: 255)]
     private $description;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -180,5 +180,8 @@ class Client
         }
 
         return $this;
+    }
+    public function __toString(): string {
+        return $this->Name.":".$this->Nom_Complet;
     }
 }
