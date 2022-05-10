@@ -17,7 +17,7 @@ class ContratType extends AbstractType
     {
         $builder
             ->add('Name') ->add('Num_Contrat') ->add('client')
-            ->add('Num_Contrat_Cadre') ->add('type',ChoiceType::class)
+            ->add('Num_Contrat_Cadre') ->add('type')
             ->add('start')  ->add('end')
             ->add('nombre_H_totale')
             ->add('TeamExperts')
