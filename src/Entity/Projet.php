@@ -13,7 +13,7 @@ class Projet
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'color', length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $Cluster;
 
     #[ORM\Column(type: 'string', length: 255)]
