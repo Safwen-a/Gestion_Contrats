@@ -25,7 +25,6 @@ class ContratType extends AbstractType
             ->add('HommeJours')
             ->add('Frais_Service')
             ->add('frais_transport')
-
             ->add('Remuneration_totale')
             ->add('Enregistrer',SubmitType::class)
             ->add('Annuler',ResetType::class)

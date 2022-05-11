@@ -224,12 +224,12 @@ class Contrat
         return $this;
     }
 
-    public function getRemuneration_Totale(): ?float
+    public function getRemunerationTotale(): ?float
     {
         return $this->Remuneration_totale;
     }
 
-    public function setRemuneration_Totale(?float $Remuneration_totale): self
+    public function setRemunerationTotale(?float $Remuneration_totale): self
     {
         $this->Remuneration_totale = $Remuneration_totale;
 
