@@ -36,9 +36,9 @@
 								<td>{{ contrat.NumContratCadre }}</td>
 								<td>{{ contrat.start ? contrat.start|date('Y-m-d') : '' }}</td>
 								<td>{{ contrat.end ? contrat.end|date('Y-m-d') : '' }}</td>
-								<td>{{ contrat.nombreHTotale }}</td>
-								<td>{{ contrat.nombreHRestant }}</td>
-								<td>{{ contrat.NbExpertJours }}</td>
+								
+							
+								
 								<td>{{ contrat.TeamExperts ? contrat.TeamExperts|join(', ') : '' }}</td>
 								<td>
 									<a href="{{ path('app_contrat_show', {'id': contrat.id}) }}">show more

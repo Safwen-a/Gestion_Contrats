@@ -25,20 +25,15 @@ class Contrat
     #[ORM\Column(type: 'date')]
     private $end;
 
-    #[ORM\Column(type: 'integer')]
-    private $nombre_H_totale;
-
-    #[ORM\Column(type: 'integer')]
-    private $nombre_H_restant;
+    
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $etat_contrat;
+    private $etat_contrat="dddd";
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $description;
+    private $description="dddd";
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: '0')]
-    private $prix;
+   
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: '0')]
     private $forfait;
@@ -52,17 +47,25 @@ class Contrat
     #[ORM\Column(type: 'integer')]
     private $Num_Contrat_Cadre;
 
-    #[ORM\Column(type: 'integer')]
-    private $Nb_expert_jours;
-
-    #[ORM\Column(type: 'integer')]
-    private $Homme_Jours_Experts;
+    
 
     #[ORM\Column(type: 'array')]
     private $TeamExperts = [];
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contrats')]
     private $client;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $Remuneration_totale;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $expertjours;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $HommeJours;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $Frais_Service;
 
     public function getId(): ?int
     {
@@ -117,29 +120,8 @@ class Contrat
         return $this;
     }
 
-    public function getNombreHTotale(): ?int
-    {
-        return $this->nombre_H_totale;
-    }
-
-    public function setNombreHTotale(int $nombre_H_totale): self
-    {
-        $this->nombre_H_totale = $nombre_H_totale;
-
-        return $this;
-    }
-
-    public function getNombreHRestant(): ?int
-    {
-        return $this->nombre_H_restant;
-    }
-
-    public function setNombreHRestant(int $nombre_H_restant): self
-    {
-        $this->nombre_H_restant = $nombre_H_restant;
-
-        return $this;
-    }
+    
+   
 
     public function getEtatContrat(): ?string
     {
@@ -148,6 +130,7 @@ class Contrat
 
     public function setEtatContrat(string $etat_contrat): self
     {
+
         $this->etat_contrat = $etat_contrat;
 
         return $this;
@@ -165,17 +148,7 @@ class Contrat
         return $this;
     }
 
-    public function getPrix(): ?string
-    {
-        return $this->prix;
-    }
-
-    public function setPrix(string $prix): self
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
+   
 
     public function getForfait(): ?string
     {
@@ -225,29 +198,7 @@ class Contrat
         return $this;
     }
 
-    public function getNbExpertJours(): ?int
-    {
-        return $this->Nb_expert_jours;
-    }
 
-    public function setNbExpertJours(int $Nb_expert_jours): self
-    {
-        $this->Nb_expert_jours = $Nb_expert_jours;
-
-        return $this;
-    }
-
-    public function getHommeJoursExperts(): ?int
-    {
-        return $this->Homme_Jours_Experts;
-    }
-
-    public function setHommeJoursExperts(int $Homme_Jours_Experts): self
-    {
-        $this->Homme_Jours_Experts = $Homme_Jours_Experts;
-
-        return $this;
-    }
 
     public function getTeamExperts(): ?array
     {
@@ -269,6 +220,54 @@ class Contrat
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getRemuneration_Totale(): ?float
+    {
+        return $this->Remuneration_totale;
+    }
+
+    public function setRemuneration_Totale(?float $Remuneration_totale): self
+    {
+        $this->Remuneration_totale = $Remuneration_totale;
+
+        return $this;
+    }
+
+    public function getExpertjours(): ?float
+    {
+        return $this->expertjours;
+    }
+
+    public function setExpertjours(?float $expertjours): self
+    {
+        $this->expertjours = $expertjours;
+
+        return $this;
+    }
+
+    public function getHommeJours(): ?float
+    {
+        return $this->HommeJours;
+    }
+
+    public function setHommeJours(?float $HommeJours): self
+    {
+        $this->HommeJours = $HommeJours;
+
+        return $this;
+    }
+
+    public function getFraisService(): ?float
+    {
+        return $this->Frais_Service;
+    }
+
+    public function setFraisService(?float $Frais_Service): self
+    {
+        $this->Frais_Service = $Frais_Service;
 
         return $this;
     }

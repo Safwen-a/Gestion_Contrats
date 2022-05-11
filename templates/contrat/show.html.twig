@@ -28,13 +28,10 @@
                 <td>{{ contrat.end ? contrat.end|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Nombre_H_totale</th>
-                <td>{{ contrat.nombreHTotale }}</td>
+                <th>Expert Jours</th>
+                <td>{{ contrat.expertjours}}</td>
             </tr>
-            <tr>
-                <th>Nombre_H_restant</th>
-                <td>{{ contrat.nombreHRestant }}</td>
-            </tr>
+            
             <tr>
                 <th>Etat_contrat</th>
                 <td>{{ contrat.etatContrat }}</td>
@@ -44,8 +41,8 @@
                 <td>{{ contrat.description }}</td>
             </tr>
             <tr>
-                <th>Prix</th>
-                <td>{{ contrat.prix }}</td>
+                <th>Rémunèration Totale</th>
+                <td>{{ contrat.Remuneration_totale}}</td>
             </tr>
             <tr>
                 <th>Forfait</th>
@@ -63,14 +60,8 @@
                 <th>Num_Contrat_Cadre</th>
                 <td>{{ contrat.NumContratCadre }}</td>
             </tr>
-            <tr>
-                <th>Nb_expert_jours</th>
-                <td>{{ contrat.NbExpertJours }}</td>
-            </tr>
-            <tr>
-                <th>Homme_Jours_Experts</th>
-                <td>{{ contrat.HommeJoursExperts }}</td>
-            </tr>
+            
+            
             <tr>
                 <th>TeamExperts</th>
                 <td>{{ contrat.TeamExperts ? contrat.TeamExperts|join(', ') : '' }}</td>
