@@ -23,7 +23,7 @@ class FicheIntervention
     private $Type_Intervention = [];
 
     #[ORM\Column(type: 'integer')]
-    private $Nombre_H_realisé;
+    private $Nombre_H_realise;
 
     #[ORM\Column(type: 'text')]
     private $description;
@@ -75,14 +75,14 @@ class FicheIntervention
         return $this;
     }
 
-    public function getNombreHRealisé(): ?int
+    public function getNombreHRealise(): ?int
     {
-        return $this->Nombre_H_realisé;
+        return $this->Nombre_H_realise;
     }
 
-    public function setNombreHRealisé(int $Nombre_H_realisé): self
+    public function setNombreHRealise(int $Nombre_H_realise): self
     {
-        $this->Nombre_H_realisé = $Nombre_H_realisé;
+        $this->Nombre_H_realise = $Nombre_H_realise;
 
         return $this;
     }
