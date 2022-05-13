@@ -20,11 +20,11 @@
 							<th>N° Contrat Cadre</th>
 							<th>Start</th>
 							<th>End</th>
-							<th>H/J totale</th>
-							<th>H/J restant</th>
-							<th>Jours Expert</th>
 							<th>TeamExperts</th>
-							<th>actions</th>
+							<th>ExpertJours</th>
+							<th>Nombre d'heures restant </th>
+							<th> % Contrat </th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,10 +36,16 @@
 								<td>{{ contrat.NumContratCadre }}</td>
 								<td>{{ contrat.start ? contrat.start|date('Y-m-d') : '' }}</td>
 								<td>{{ contrat.end ? contrat.end|date('Y-m-d') : '' }}</td>
-								
-							
-								
 								<td>{{ contrat.TeamExperts ? contrat.TeamExperts|join(', ') : '' }}</td>
+								<td>{{contrat.expertjours}}</td>
+								<td>{{contrat.expertjours}}</td>
+								<td> {% if contrat.expertjours==0 %}
+								{{"Aucune Intervention Faite"}}
+								{% else %}
+								{{(contrat.expertjours/80)*100}}{{"%"}}
+								{% endif %}
+								
+								</td>
 								<td>
 									<a href="{{ path('app_contrat_show', {'id': contrat.id}) }}">show more
 									</a><br>

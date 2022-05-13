@@ -25,18 +25,11 @@ class Contrat
     #[ORM\Column(type: 'date')]
     private $end;
 
-    
-
     #[ORM\Column(type: 'string', length: 255)]
     private $etat_contrat="dddd";
 
     #[ORM\Column(type: 'string', length: 255)]
     private $description="dddd";
-
-   
-
-    #[ORM\Column(type: 'decimal', precision: 10, scale: '0')]
-    private $forfait;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: '0')]
     private $frais_transport;
@@ -148,19 +141,6 @@ class Contrat
         return $this;
     }
 
-   
-
-    public function getForfait(): ?string
-    {
-        return $this->forfait;
-    }
-
-    public function setForfait(string $forfait): self
-    {
-        $this->forfait = $forfait;
-
-        return $this;
-    }
 
     public function getFraisTransport(): ?string
     {

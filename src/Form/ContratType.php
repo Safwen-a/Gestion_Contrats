@@ -16,11 +16,14 @@ class ContratType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name') ->add('Num_Contrat') ->add('client')
-            ->add('Num_Contrat_Cadre') ->add('type')
-            ->add('start')  ->add('end')
+            ->add('Name') 
+            ->add('Num_Contrat') 
+            ->add('client')
+            ->add('Num_Contrat_Cadre') 
+            ->add('type')
+            ->add('start')  
+            ->add('end')
             ->add('TeamExperts')
-            ->add('forfait') 
             ->add('expertjours')
             ->add('HommeJours')
             ->add('Frais_Service')
