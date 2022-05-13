@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Intervention index{% endblock %}
+
+{% block body %}
+    <h1>Fiche Intervention index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_Intervention</th>
+                <th>Date_Intervention</th>
+                <th>Type_Intervention</th>
+                <th>Nombre_H_realisé</th>
+                <th>Description</th>
+                <th>Lieu_Intervention</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche_intervention in fiche_interventions %}
+            <tr>
+                <td>{{ fiche_intervention.id }}</td>
+                <td>{{ fiche_intervention.NomIntervention }}</td>
+                <td>{{ fiche_intervention.DateIntervention ? fiche_intervention.DateIntervention|date('Y-m-d') : '' }}</td>
+                <td>{{ fiche_intervention.TypeIntervention ? fiche_intervention.TypeIntervention|join(', ') : '' }}</td>
+                <td>{{ fiche_intervention.NombreHRealisé }}</td>
+                <td>{{ fiche_intervention.description }}</td>
+                <td>{{ fiche_intervention.LieuIntervention }}</td>
+                <td>
+                    <a href="{{ path('app_intervention_show', {'id': fiche_intervention.id}) }}">show</a>
+                    <a href="{{ path('app_intervention_edit', {'id': fiche_intervention.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_intervention_new') }}">Create new</a>
+{% endblock %}

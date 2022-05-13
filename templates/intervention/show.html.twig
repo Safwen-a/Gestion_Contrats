@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FicheIntervention{% endblock %}
+
+{% block body %}
+    <h1>FicheIntervention</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fiche_intervention.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_Intervention</th>
+                <td>{{ fiche_intervention.NomIntervention }}</td>
+            </tr>
+            <tr>
+                <th>Date_Intervention</th>
+                <td>{{ fiche_intervention.DateIntervention ? fiche_intervention.DateIntervention|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type_Intervention</th>
+                <td>{{ fiche_intervention.TypeIntervention ? fiche_intervention.TypeIntervention|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nombre_H_realisé</th>
+                <td>{{ fiche_intervention.NombreHRealise }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ fiche_intervention.description }}</td>
+            </tr>
+            <tr>
+                <th>Lieu_Intervention</th>
+                <td>{{ fiche_intervention.LieuIntervention }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_intervention_index') }}">back to list</a>
+
+    <a href="{{ path('app_intervention_edit', {'id': fiche_intervention.id}) }}">edit</a>
+
+    {{ include('intervention/_delete_form.html.twig') }}
+{% endblock %}
