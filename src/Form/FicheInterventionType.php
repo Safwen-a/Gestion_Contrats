@@ -13,12 +13,12 @@ class FicheInterventionType extends AbstractType
     {
         $builder
             ->add('id')
-            ->add('Nom')
-            ->add('Date')
-            ->add('Type')
-            ->add('realise')
+            ->add('Nom_intervention')
+            ->add('Date_intervention')
+            ->add('Type_intervention')
+            ->add('nombre_H_realise')
             ->add('description')
-            ->add('Lieu')
+            ->add('Lieu_intervention')
             ->add('Expert')
         ;
     }
