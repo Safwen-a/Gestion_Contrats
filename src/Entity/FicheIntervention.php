@@ -34,6 +34,9 @@ class FicheIntervention
     #[ORM\ManyToOne(targetEntity: Expert::class, inversedBy: 'Fiches_Intervention')]
     private $Expert;
 
+    #[ORM\ManyToOne(targetEntity: Contrat::class, inversedBy: 'interventions')]
+    private $contrat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class FicheIntervention
     public function setExpert(?Expert $Expert): self
     {
         $this->Expert = $Expert;
+
+        return $this;
+    }
+
+    public function getContrat(): ?Contrat
+    {
+        return $this->contrat;
+    }
+
+    public function setContrat(?Contrat $contrat): self
+    {
+        $this->contrat = $contrat;
 
         return $this;
     }

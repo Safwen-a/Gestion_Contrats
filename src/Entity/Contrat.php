@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContratRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ContratRepository::class)]
@@ -59,6 +61,14 @@ class Contrat
 
     #[ORM\Column(type: 'float', nullable: true)]
     private $Frais_Service;
+
+    #[ORM\OneToMany(mappedBy: 'contrat', targetEntity: FicheIntervention::class)]
+    private $interventions;
+
+    public function __construct()
+    {
+        $this->interventions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -248,6 +258,36 @@ class Contrat
     public function setFraisService(?float $Frais_Service): self
     {
         $this->Frais_Service = $Frais_Service;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FicheIntervention>
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(FicheIntervention $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions[] = $intervention;
+            $intervention->setContrat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(FicheIntervention $intervention): self
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getContrat() === $this) {
+                $intervention->setContrat(null);
+            }
+        }
 
         return $this;
     }
