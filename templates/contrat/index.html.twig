@@ -7,7 +7,7 @@
 	<!-- DataTales -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Projet index</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Contrats</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -30,7 +30,7 @@
 					<tbody>
 						{% for contrat in contrats %}
 							<tr>
-								<td>{{ contrat.Client}}</td>
+								<td>{{ contrat.Client.name}}</td>
 								<td>{{ contrat.Name }}</td>
 								<td>{{ contrat.NumContrat }}</td>
 								<td>{{ contrat.NumContratCadre }}</td>
