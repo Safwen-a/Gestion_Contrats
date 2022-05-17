@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
+
 class ContratType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -19,18 +20,19 @@ class ContratType extends AbstractType
             ->add('Name') 
             ->add('Num_Contrat') 
             ->add('client')
-            ->add('Num_Contrat_Cadre') 
+            //->add('Num_Contrat_Cadre') 
             ->add('type')
             ->add('start')  
             ->add('end')
             ->add('TeamExperts')
             ->add('expertjours')
             ->add('HommeJours')
-            ->add('Frais_Service')
+            //->add('Frais_Service')
             ->add('frais_transport')
-            ->add('Remuneration_totale')
-            ->add('Enregistrer',SubmitType::class)
-            ->add('Annuler',ResetType::class)
+            //->add('Remuneration_totale')
+            //->add('Enregistrer',SubmitType::class)
+            //->add('Annuler',ResetType::class)
+            
         ;
     }
 
