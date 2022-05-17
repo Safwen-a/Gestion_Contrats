@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
@@ -27,6 +29,14 @@ class Projet
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'projets')]
     private $client_id;
+
+    #[ORM\ManyToMany(targetEntity: Compteur::class, mappedBy: 'relation_pr')]
+    private $compteurs;
+
+    public function __construct()
+    {
+        $this->compteurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,33 @@ class Projet
     public function setClientId(?Client $client_id): self
     {
         $this->client_id = $client_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Compteur>
+     */
+    public function getCompteurs(): Collection
+    {
+        return $this->compteurs;
+    }
+
+    public function addCompteur(Compteur $compteur): self
+    {
+        if (!$this->compteurs->contains($compteur)) {
+            $this->compteurs[] = $compteur;
+            $compteur->addRelationPr($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteur(Compteur $compteur): self
+    {
+        if ($this->compteurs->removeElement($compteur)) {
+            $compteur->removeRelationPr($this);
+        }
 
         return $this;
     }

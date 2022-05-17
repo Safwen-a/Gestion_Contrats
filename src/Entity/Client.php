@@ -38,10 +38,14 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class)]
     private $contrats;
 
+    #[ORM\ManyToMany(targetEntity: Compteur::class, mappedBy: 'relation_cl')]
+    private $compteurs;
+
     public function __construct()
     {
         $this->projets = new ArrayCollection();
         $this->contrats = new ArrayCollection();
+        $this->compteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,5 +176,32 @@ class Client
     }
     public function __toString(): string {
         return $this->Name.":".$this->Nom_Complet;
+    }
+
+    /**
+     * @return Collection<int, Compteur>
+     */
+    public function getCompteurs(): Collection
+    {
+        return $this->compteurs;
+    }
+
+    public function addCompteur(Compteur $compteur): self
+    {
+        if (!$this->compteurs->contains($compteur)) {
+            $this->compteurs[] = $compteur;
+            $compteur->addRelationCl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteur(Compteur $compteur): self
+    {
+        if ($this->compteurs->removeElement($compteur)) {
+            $compteur->removeRelationCl($this);
+        }
+
+        return $this;
     }
 }

@@ -37,10 +37,14 @@ class Expert
     #[ORM\ManyToMany(targetEntity: Contrat::class, mappedBy: 'TeamExperts')]
     private $contrats;
 
+    #[ORM\ManyToMany(targetEntity: Compteur::class, mappedBy: 'relation_ex')]
+    private $compteurs;
+
     public function __construct()
     {
         $this->Fiches_Intervention = new ArrayCollection();
         $this->contrats = new ArrayCollection();
+        $this->compteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,6 +180,33 @@ public function getEmail(): ?string
     {
         if ($this->contrats->removeElement($contrat)) {
             $contrat->removeTeamExpert($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Compteur>
+     */
+    public function getCompteurs(): Collection
+    {
+        return $this->compteurs;
+    }
+
+    public function addCompteur(Compteur $compteur): self
+    {
+        if (!$this->compteurs->contains($compteur)) {
+            $this->compteurs[] = $compteur;
+            $compteur->addRelationEx($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompteur(Compteur $compteur): self
+    {
+        if ($this->compteurs->removeElement($compteur)) {
+            $compteur->removeRelationEx($this);
         }
 
         return $this;
