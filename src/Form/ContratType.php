@@ -8,7 +8,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+
 
 
 
@@ -24,7 +28,17 @@ class ContratType extends AbstractType
             ->add('type')
             ->add('start')  
             ->add('end')
-            ->add('TeamExperts')
+            ->add('TeamExperts', CollectionType::class, [
+                'entry_type'   => ChoiceType::class,
+                'entry_options'  => [
+                'choices'  => [
+                    'Nashville' => 'nashville',
+                    'Paris'     => 'paris',
+                    'Berlin'    => 'berlin',
+                    'London'    => 'london',
+                ],
+            ],
+            ])
             ->add('expertjours')
             ->add('HommeJours')
             //->add('Frais_Service')

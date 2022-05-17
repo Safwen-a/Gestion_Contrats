@@ -43,8 +43,6 @@ class Contrat
 
     
 
-    #[ORM\Column(type: 'array')]
-    private $TeamExperts = [];
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contrats')]
     private $client;
@@ -67,9 +65,13 @@ class Contrat
     #[ORM\ManyToOne(targetEntity: TypeContrat::class)]
     private $type;
 
+    #[ORM\ManyToMany(targetEntity: Expert::class, inversedBy: 'contrats')]
+    private $TeamExperts;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
+        $this->TeamExperts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,17 +183,7 @@ class Contrat
 
 
 
-    public function getTeamExperts(): ?array
-    {
-        return $this->TeamExperts;
-    }
 
-    public function setTeamExperts(array $TeamExperts): self
-    {
-        $this->TeamExperts = $TeamExperts;
-
-        return $this;
-    }
 
     public function getClient(): ?Client
     {
@@ -291,6 +283,30 @@ class Contrat
     public function setType(?TypeContrat $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Expert>
+     */
+    public function getTeamExperts(): Collection
+    {
+        return $this->TeamExperts;
+    }
+
+    public function addTeamExpert(Expert $teamExpert): self
+    {
+        if (!$this->TeamExperts->contains($teamExpert)) {
+            $this->TeamExperts[] = $teamExpert;
+        }
+
+        return $this;
+    }
+
+    public function removeTeamExpert(Expert $teamExpert): self
+    {
+        $this->TeamExperts->removeElement($teamExpert);
 
         return $this;
     }

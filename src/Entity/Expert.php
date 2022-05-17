@@ -34,9 +34,13 @@ class Expert
     #[ORM\OneToMany(mappedBy: 'Expert', targetEntity: FicheIntervention::class)]
     private $Fiches_Intervention;
 
+    #[ORM\ManyToMany(targetEntity: Contrat::class, mappedBy: 'TeamExperts')]
+    private $contrats;
+
     public function __construct()
     {
         $this->Fiches_Intervention = new ArrayCollection();
+        $this->contrats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,6 +158,36 @@ public function getEmail(): ?string
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+    public function __toString():string {
+        return $this->Name ;
+    }
+
+    /**
+     * @return Collection<int, Contrat>
+     */
+    public function getContrats(): Collection
+    {
+        return $this->contrats;
+    }
+
+    public function addContrat(Contrat $contrat): self
+    {
+        if (!$this->contrats->contains($contrat)) {
+            $this->contrats[] = $contrat;
+            $contrat->addTeamExpert($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContrat(Contrat $contrat): self
+    {
+        if ($this->contrats->removeElement($contrat)) {
+            $contrat->removeTeamExpert($this);
+        }
 
         return $this;
     }
