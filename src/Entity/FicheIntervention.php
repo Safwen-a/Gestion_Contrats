@@ -19,8 +19,7 @@ class FicheIntervention
     #[ORM\Column(type: 'date')]
     private $Date_Intervention;
 
-    #[ORM\Column(type: 'array')]
-    private $Type_Intervention = [];
+
 
     #[ORM\Column(type: 'integer')]
     private $Nombre_H_realise;
@@ -36,6 +35,10 @@ class FicheIntervention
 
     #[ORM\ManyToOne(targetEntity: Contrat::class, inversedBy: 'interventions')]
     private $contrat;
+
+    #[ORM\ManyToOne(targetEntity: TypeIntervention::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $Type;
 
     public function getId(): ?int
     {
@@ -66,17 +69,6 @@ class FicheIntervention
         return $this;
     }
 
-    public function getTypeIntervention(): ?array
-    {
-        return $this->Type_Intervention;
-    }
-
-    public function setTypeIntervention(array $Type_Intervention): self
-    {
-        $this->Type_Intervention = $Type_Intervention;
-
-        return $this;
-    }
 
     public function getNombreHRealise(): ?int
     {
@@ -134,6 +126,18 @@ class FicheIntervention
     public function setContrat(?Contrat $contrat): self
     {
         $this->contrat = $contrat;
+
+        return $this;
+    }
+
+    public function getType(): ?TypeIntervention
+    {
+        return $this->Type;
+    }
+
+    public function setType(?TypeIntervention $Type): self
+    {
+        $this->Type = $Type;
 
         return $this;
     }

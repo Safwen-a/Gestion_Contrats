@@ -12,10 +12,9 @@ class FicheInterventionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id')
             ->add('Nom_intervention')
-            ->add('Date_intervention')
-            ->add('Type_intervention')
+            ->add('Date_Intervention')
+            ->add('Type')
             ->add('nombre_H_realise')
             ->add('description')
             ->add('Lieu_intervention')

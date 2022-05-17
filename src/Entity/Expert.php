@@ -138,18 +138,7 @@ class Expert
         return $this;
     }
    
-    public function ajouterExpert(User $utilisateur): Response
-    {
-        foreach ($this as $key => $value) {
 
-            foreach ($Roles as $key => $value) {
-               if ($value =="ROLE_EXPERT"){
-                  $this->setName =($utilisateur->FirstName ); 
-                  $this->setName($utilisateur->Nom) ;
-               }
-              }
-          }
-    }
 public function getEmail(): ?string
     {
         return $this->email;

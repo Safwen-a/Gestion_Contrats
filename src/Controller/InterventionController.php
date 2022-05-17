@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Expert;
 
 
 #[Route('/intervention')]
@@ -33,8 +34,20 @@ class InterventionController extends AbstractController
         $ficheIntervention = new FicheIntervention();
         $form = $this->createForm(FicheInterventionType::class, $ficheIntervention);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $expert = $entityManager
+            ->getRepository(Expert::class)
+            ->findAll();
+            foreach($expert as $ex){
+                if($ex==$ficheIntervention->getExpert()){
+                    $ex->setNombreHFait($ficheIntervention->getNombreHRealise()+$ex->getNombreHFait());
+                    $expert=new Expert();
+                    $expert=$ex;
+                    $entityManager->persist($expert);
+                    break;
+                }
+            }
+            
             $entityManager->persist($ficheIntervention);
             $entityManager->flush();
 
