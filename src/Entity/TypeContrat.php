@@ -15,17 +15,13 @@ class TypeContrat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Contrat_Cadre;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Contrat_Normale;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Avenant;
+    
 
     #[ORM\OneToMany(mappedBy: 'Type', targetEntity: Contrat::class)]
     private $Contrats;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Nom_Type;
 
     public function __construct()
     {
@@ -37,41 +33,7 @@ class TypeContrat
         return $this->id;
     }
 
-    public function getContratCadre(): ?string
-    {
-        return $this->Contrat_Cadre;
-    }
-
-    public function setContratCadre(string $Contrat_Cadre): self
-    {
-        $this->Contrat_Cadre = $Contrat_Cadre;
-
-        return $this;
-    }
-
-    public function getContratNormale(): ?string
-    {
-        return $this->Contrat_Normale;
-    }
-
-    public function setContratNormale(string $Contrat_Normale): self
-    {
-        $this->Contrat_Normale = $Contrat_Normale;
-
-        return $this;
-    }
-
-    public function getAvenant(): ?string
-    {
-        return $this->Avenant;
-    }
-
-    public function setAvenant(string $Avenant): self
-    {
-        $this->Avenant = $Avenant;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Contrat>
@@ -99,6 +61,18 @@ class TypeContrat
                 $contrat->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomType(): ?string
+    {
+        return $this->Nom_Type;
+    }
+
+    public function setNomType(string $Nom_Type): self
+    {
+        $this->Nom_Type = $Nom_Type;
 
         return $this;
     }
