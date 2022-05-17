@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TypeContratRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeContratRepository::class)]
@@ -15,65 +13,27 @@ class TypeContrat
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    
-
-    #[ORM\OneToMany(mappedBy: 'Type', targetEntity: Contrat::class)]
-    private $Contrats;
-
     #[ORM\Column(type: 'string', length: 255)]
-    private $Nom_Type;
-
-    public function __construct()
-    {
-        $this->Contrats = new ArrayCollection();
-    }
+    private $Nom;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-   
-
-    /**
-     * @return Collection<int, Contrat>
-     */
-    public function getContrats(): Collection
+    public function getNom(): ?string
     {
-        return $this->Contrats;
+        return $this->Nom;
     }
 
-    public function addContrat(Contrat $contrat): self
+    public function setNom(string $Nom): self
     {
-        if (!$this->Contrats->contains($contrat)) {
-            $this->Contrats[] = $contrat;
-            $contrat->setType($this);
-        }
+        $this->Nom = $Nom;
 
         return $this;
     }
-
-    public function removeContrat(Contrat $contrat): self
+    public function __toString() : string
     {
-        if ($this->Contrats->removeElement($contrat)) {
-            // set the owning side to null (unless already changed)
-            if ($contrat->getType() === $this) {
-                $contrat->setType(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getNomType(): ?string
-    {
-        return $this->Nom_Type;
-    }
-
-    public function setNomType(string $Nom_Type): self
-    {
-        $this->Nom_Type = $Nom_Type;
-
-        return $this;
+        return $this->Nom ;
     }
 }

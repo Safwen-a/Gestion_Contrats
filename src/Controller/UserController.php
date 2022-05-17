@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Entity\Expert;
+use App\Repository\ExpertRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +36,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(in_array('ROLE_EXPERT',$user->getRoles())){
+                $expert=new Expert();
+                $expert->setName($user->getName());
+                $expert->setFirstName($user->getFirstName());
+                $expert->setEmail($user->getEmail());
+                $entityManager->persist($expert);
+                $entityManager->flush();
+            }
+            
             $entityManager->persist($user);
             $entityManager->flush();
 

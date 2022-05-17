@@ -64,9 +64,8 @@ class Contrat
     #[ORM\OneToMany(mappedBy: 'contrat', targetEntity: FicheIntervention::class)]
     private $interventions;
 
-    #[ORM\ManyToOne(targetEntity: TypeContrat::class, inversedBy: 'Contrats')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $Type;
+    #[ORM\ManyToOne(targetEntity: TypeContrat::class)]
+    private $type;
 
     public function __construct()
     {
@@ -286,14 +285,15 @@ class Contrat
 
     public function getType(): ?TypeContrat
     {
-        return $this->Type;
+        return $this->type;
     }
 
-    public function setType(?TypeContrat $Type): self
+    public function setType(?TypeContrat $type): self
     {
-        $this->Type = $Type;
+        $this->type = $type;
 
         return $this;
     }
+
    
 }

@@ -8,17 +8,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExpertRepository::class)]
-class Expert extends User
+class Expert 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Etat_expert;
-
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private $email;
+    
+    
+    #[ORM\Column(type: 'integer', nullable:true)]
     private $Nombre_H_Fait;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -27,7 +28,7 @@ class Expert extends User
     #[ORM\Column(type: 'string', length: 255)]
     private $FirstName;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer',nullable:true)]
     private $Tel;
 
     #[ORM\OneToMany(mappedBy: 'Expert', targetEntity: FicheIntervention::class)]
@@ -54,7 +55,7 @@ class Expert extends User
 
         return $this;
     }
-
+   
     public function getNombreHFait(): ?int
     {
         return $this->Nombre_H_Fait;
@@ -132,4 +133,29 @@ class Expert extends User
 
         return $this;
     }
+   
+    public function ajouterExpert(User $utilisateur): Response
+    {
+        foreach ($this as $key => $value) {
+
+            foreach ($Roles as $key => $value) {
+               if ($value =="ROLE_EXPERT"){
+                  $this->setName =($utilisateur->FirstName ); 
+                  $this->setName($utilisateur->Nom) ;
+               }
+              }
+          }
+    }
+public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
 }
