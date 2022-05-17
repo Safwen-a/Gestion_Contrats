@@ -21,8 +21,7 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $Nom_Complet;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $Nom_charge_dossier;
+  
 
     #[ORM\Column(type: 'text', length: 255)]
     private $description;
@@ -74,17 +73,7 @@ class Client
         return $this;
     }
 
-    public function getNomChargeDossier(): ?string
-    {
-        return $this->Nom_charge_dossier;
-    }
-
-    public function setNomChargeDossier(string $Nom_charge_dossier): self
-    {
-        $this->Nom_charge_dossier = $Nom_charge_dossier;
-
-        return $this;
-    }
+   
 
     public function getDescription(): ?string
     {
