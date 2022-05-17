@@ -36,8 +36,7 @@ class Contrat
     #[ORM\Column(type: 'decimal', precision: 10, scale: '0')]
     private $frais_transport;
 
-    #[ORM\Column(type: 'array')]
-    private $type = [];
+  
 
     #[ORM\Column(type: 'integer')]
     private $Num_Contrat_Cadre;
@@ -64,6 +63,10 @@ class Contrat
 
     #[ORM\OneToMany(mappedBy: 'contrat', targetEntity: FicheIntervention::class)]
     private $interventions;
+
+    #[ORM\ManyToOne(targetEntity: TypeContrat::class, inversedBy: 'Contrats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $Type;
 
     public function __construct()
     {
@@ -164,17 +167,6 @@ class Contrat
         return $this;
     }
 
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    public function setType(array $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getNumContratCadre(): ?int
     {
@@ -288,6 +280,18 @@ class Contrat
                 $intervention->setContrat(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?TypeContrat
+    {
+        return $this->Type;
+    }
+
+    public function setType(?TypeContrat $Type): self
+    {
+        $this->Type = $Type;
 
         return $this;
     }
