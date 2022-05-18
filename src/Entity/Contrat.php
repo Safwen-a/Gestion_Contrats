@@ -38,7 +38,7 @@ class Contrat
 
   
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer',nullable:true)]
     private $Num_Contrat_Cadre;
 
     
@@ -72,6 +72,9 @@ class Contrat
     #[ORM\ManyToOne(targetEntity: Expert::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $Interim;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $addToNotification;
 
     
 
@@ -313,6 +316,18 @@ class Contrat
     public function setInterim(?Expert $Interim): self
     {
         $this->Interim = $Interim;
+
+        return $this;
+    }
+
+    public function isAddToNotification(): ?bool
+    {
+        return $this->addToNotification;
+    }
+
+    public function setAddToNotification(?bool $addToNotification): self
+    {
+        $this->addToNotification = $addToNotification;
 
         return $this;
     }

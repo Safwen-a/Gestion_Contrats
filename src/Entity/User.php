@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $FirstName;
+
+    #[ORM\ManyToMany(targetEntity: Notification::class, mappedBy: 'user')]
+    private $notifications;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $unreadNotification;
+
+    public function __construct()
+    {
+        $this->notifications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,6 +137,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(string $FirstName): self
     {
         $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            $notification->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getUnreadNotification(): ?int
+    {
+        return $this->unreadNotification;
+    }
+
+    public function setUnreadNotification(?int $unreadNotification): self
+    {
+        $this->unreadNotification = $unreadNotification;
 
         return $this;
     }
