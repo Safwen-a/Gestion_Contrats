@@ -65,13 +65,19 @@ class Contrat
     #[ORM\ManyToOne(targetEntity: TypeContrat::class)]
     private $type;
 
-    #[ORM\ManyToMany(targetEntity: Expert::class, inversedBy: 'contrats')]
-    private $TeamExperts;
+    #[ORM\ManyToOne(targetEntity: Expert::class, inversedBy: 'contrats')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $Expert;
+
+    #[ORM\ManyToOne(targetEntity: Expert::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $Interim;
+
+    
 
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
-        $this->TeamExperts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -287,26 +293,26 @@ class Contrat
         return $this;
     }
 
-    /**
-     * @return Collection<int, Expert>
-     */
-    public function getTeamExperts(): Collection
+    public function getExpert(): ?Expert
     {
-        return $this->TeamExperts;
+        return $this->Expert;
     }
 
-    public function addTeamExpert(Expert $teamExpert): self
+    public function setExpert(?Expert $Expert): self
     {
-        if (!$this->TeamExperts->contains($teamExpert)) {
-            $this->TeamExperts[] = $teamExpert;
-        }
+        $this->Expert = $Expert;
 
         return $this;
     }
 
-    public function removeTeamExpert(Expert $teamExpert): self
+    public function getInterim(): ?Expert
     {
-        $this->TeamExperts->removeElement($teamExpert);
+        return $this->Interim;
+    }
+
+    public function setInterim(?Expert $Interim): self
+    {
+        $this->Interim = $Interim;
 
         return $this;
     }

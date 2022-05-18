@@ -30,20 +30,24 @@ class ClientController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
+        if  (!$client->getCategorie())   {
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($client);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($client);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            }
 
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->renderForm('client/new.html.twig', [
+                'client' => $client,
+                'form' => $form,
+            ]);
         }
+        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+        
 
-        return $this->renderForm('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]

@@ -18,7 +18,6 @@
                 <th>Name</th>
                 <th>Nom_Complet</th>
                
-                <th>Description</th>
                 <th>Pays</th>
                 <th>actions</th>
             </tr>
@@ -30,7 +29,6 @@
                 <td>{{ client.Name }}</td>
                 <td>{{ client.NomComplet }}</td>
                 
-                <td>{{ client.description }}</td>
                 <td>{{ client.pays }}</td>
                 <td>
                     <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>

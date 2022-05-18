@@ -34,11 +34,13 @@ class Expert
     #[ORM\OneToMany(mappedBy: 'Expert', targetEntity: FicheIntervention::class)]
     private $Fiches_Intervention;
 
-    #[ORM\ManyToMany(targetEntity: Contrat::class, mappedBy: 'TeamExperts')]
-    private $contrats;
+    
 
     #[ORM\ManyToMany(targetEntity: Compteur::class, mappedBy: 'relation_ex')]
     private $compteurs;
+
+    #[ORM\OneToMany(mappedBy: 'Expert', targetEntity: Contrat::class)]
+    private $contrats;
 
     public function __construct()
     {
@@ -170,7 +172,6 @@ public function getEmail(): ?string
     {
         if (!$this->contrats->contains($contrat)) {
             $this->contrats[] = $contrat;
-            $contrat->addTeamExpert($this);
         }
 
         return $this;
@@ -179,7 +180,6 @@ public function getEmail(): ?string
     public function removeContrat(Contrat $contrat): self
     {
         if ($this->contrats->removeElement($contrat)) {
-            $contrat->removeTeamExpert($this);
         }
 
         return $this;
