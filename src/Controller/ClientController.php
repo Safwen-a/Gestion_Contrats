@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Entity\Notification;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +21,18 @@ class ClientController extends AbstractController
         $clients = $entityManager
             ->getRepository(Client::class)
             ->findAll();
+        
+        $notification= $entityManager
+            ->getRepository(Notification::class)
+            //->leftJoin('id')
+            ->findBy(
+                ['readed'=>0]
+                //['user_id'=>1]
+            );
 
         return $this->render('client/index.html.twig', [
             'clients' => $clients,
+            'notifications' => $notification,
         ]);
     }
 

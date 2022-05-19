@@ -18,7 +18,7 @@ class Notification
     #[ORM\Column(type: 'string', length: 255)]
     private $message;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'datetime')]
     private $date_notification;
 
     #[ORM\Column(type: 'boolean')]
