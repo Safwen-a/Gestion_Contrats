@@ -37,16 +37,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $FirstName;
 
-    #[ORM\ManyToMany(targetEntity: Notification::class, mappedBy: 'user')]
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Notification::class)]
     private $notifications;
-
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $unreadNotification;
 
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
     }
+
+
+
+
+ 
 
     public function getId(): ?int
     {
@@ -141,6 +143,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+ 
+
+    
+    public function __toString(): string {
+        return $this->Name ; 
+    }
+
     /**
      * @return Collection<int, Notification>
      */
@@ -153,7 +163,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->notifications->contains($notification)) {
             $this->notifications[] = $notification;
-            $notification->addUser($this);
+            $notification->setUser($this);
         }
 
         return $this;
@@ -162,20 +172,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeNotification(Notification $notification): self
     {
         if ($this->notifications->removeElement($notification)) {
-            $notification->removeUser($this);
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getUnreadNotification(): ?int
-    {
-        return $this->unreadNotification;
-    }
-
-    public function setUnreadNotification(?int $unreadNotification): self
-    {
-        $this->unreadNotification = $unreadNotification;
 
         return $this;
     }

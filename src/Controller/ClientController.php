@@ -18,21 +18,17 @@ class ClientController extends AbstractController
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
+
         $clients = $entityManager
             ->getRepository(Client::class)
             ->findAll();
-        
-        $notification= $entityManager
-            ->getRepository(Notification::class)
-            //->leftJoin('id')
-            ->findBy(
-                ['readed'=>0]
-                //['user_id'=>1]
-            );
+
+        $notification=new NotificationController();
+
 
         return $this->render('client/index.html.twig', [
             'clients' => $clients,
-            'notifications' => $notification,
+            //'notifications' => $notification->AfficheNotif($this->getUser(),$entityManager),
         ]);
     }
 

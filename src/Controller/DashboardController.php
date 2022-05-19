@@ -38,9 +38,10 @@ class DashboardController extends AbstractController
                     $entityManager->persist($user);
                 }
                 $entityManager->flush();
-            }
-
-            $notification= $entityManager
+            }    
+        }
+        
+        $notification= $entityManager
             ->getRepository(Notification::class)
             //->leftJoin('id')
             //->join('Id','WITH','notification_id')
@@ -50,8 +51,6 @@ class DashboardController extends AbstractController
                 ]
                 //[]
             );
-            
-        }
         
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',

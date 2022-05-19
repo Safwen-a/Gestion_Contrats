@@ -24,13 +24,11 @@ class Notification
     #[ORM\Column(type: 'boolean')]
     private $readed;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'notifications')]
-    private $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notifications')]
+    private $User;
 
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-    }
+
+
 
     public function getId(): ?int
     {
@@ -73,27 +71,17 @@ class Notification
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
-        return $this->user;
+        return $this->User;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $User): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
+        $this->User = $User;
 
         return $this;
     }
 
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
 
-        return $this;
-    }
 }

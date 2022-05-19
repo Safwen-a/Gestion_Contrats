@@ -3,12 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Notification;
+use App\Entity\User;
 use App\Form\NotificationType;
 use App\Repository\NotificationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
+
+
 
 #[Route('/notification')]
 class NotificationController extends AbstractController
@@ -16,13 +21,15 @@ class NotificationController extends AbstractController
     #[Route('/', name: 'app_notification_index', methods: ['GET'])]
     public function index(NotificationRepository $notificationRepository): Response
     {
+        
+
         return $this->render('notification/index.html.twig', [
             'notifications' => $notificationRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'app_notification_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, NotificationRepository $notificationRepository): Response
+    public function new(Request $request, NotificationRepository $notificationRepository, EntityManagerInterface $entityManager): Response
     {
         $notification = new Notification();
         $form = $this->createForm(NotificationType::class, $notification);
@@ -34,9 +41,23 @@ class NotificationController extends AbstractController
             return $this->redirectToRoute('app_notification_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $notification= $entityManager
+            ->getRepository(Notification::class)
+            //->leftJoin('id')
+            //->join('Id','WITH','notification_id')
+            ->findBy(
+                ['readed'=>0,
+                //'user'=>$user
+                ]
+                //[]
+            );
+
         return $this->renderForm('notification/new.html.twig', [
             'notification' => $notification,
             'form' => $form,
+            'notifications' => $notification,
+
+            
         ]);
     }
 
@@ -59,6 +80,7 @@ class NotificationController extends AbstractController
 
             return $this->redirectToRoute('app_notification_index', [], Response::HTTP_SEE_OTHER);
         }
+        
 
         return $this->renderForm('notification/edit.html.twig', [
             'notification' => $notification,
@@ -74,5 +96,20 @@ class NotificationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_notification_index', [], Response::HTTP_SEE_OTHER);
+    }
+    public function AfficheNotif(EntityManagerInterface $entityManager): Response
+    {
+        
+        $notification= $entityManager
+            ->getRepository(Notification::class)
+            ->findBy([
+                'readed'=>0,
+                'User'=>$this->getUser(),
+            ]);
+        
+        return $this->render('navbar.html.twig', [
+            'notifications' => $notification,
+        ]);
+
     }
 }
