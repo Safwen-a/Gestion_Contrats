@@ -28,13 +28,19 @@
 								{% set color = (projet.Cluster) %}  
                                 
 								<td>{{ projet.clientid|split(':', 2)|first }}</td>
-								<td  style="background: {{ color }}; opacity:.9;">{{ projet.NomProjet }}</td>
+								<td>
+								
+								 <svg style="color:{{color}}"" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                                     <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+                                  </svg>
+							       {{ projet.NomProjet }}
+								</td>
 								<td>{{ projet.NomChargeDossier }}</td>
 								<td>{{ projet.LieuIntervention }}</td>
 								<td>
-									<a href="{{ path('app_projet_show', {'id': projet.id}) }}">Show</a>
-									<a href="{{ path('app_projet_edit', {'id': projet.id}) }}">Edit</a>
-									<a href="{{ path('app_projet_delete', {'id': projet.id}) }}">Delete</a>
+									<a class="btn btn-primary" role="button" href="{{ path('app_projet_show', {'id': projet.id}) }}">Show</a>
+									<a class="btn btn-primary" role="button" href="{{ path('app_projet_edit', {'id': projet.id}) }}">Edit</a>
+									<a class="btn btn-primary" role="button" href="{{ path('app_projet_delete', {'id': projet.id}) }}">Delete</a>
 								</td>
 							</tr>
 						{% else %}
@@ -47,5 +53,5 @@
 			</div>
 		</div>
 	</div>
-	<a href="{{ path('app_projet_new') }}">Create new</a>
+	<a class="btn btn-primary" role="button" href="{{ path('app_projet_new') }}">Create new</a>
 {% endblock %}

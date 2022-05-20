@@ -24,7 +24,7 @@ class ContratType extends AbstractType
             ->add('Name') 
             ->add('Num_Contrat') 
             ->add('client')
-            //->add('Num_Contrat_Cadre') 
+            ->add('Num_Contrat_Cadre') 
             ->add('type')
             ->add('start')  
             ->add('end')

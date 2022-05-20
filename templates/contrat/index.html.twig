@@ -22,7 +22,7 @@
 							<th>End</th>
 							<th>TeamExperts</th>
 							<th>ExpertJours</th>
-							<th>Nombre d'heures restant </th>
+							<th>H/J restants </th>
 							<th> % Contrat </th>
 							<th>Actions</th>
 						</tr>
@@ -47,9 +47,8 @@
 								
 								</td>
 								<td>
-									<a href="{{ path('app_contrat_show', {'id': contrat.id}) }}">show more
-									</a><br>
-									<a href="{{ path('app_contrat_edit', {'id': contrat.id}) }}">edit</a>
+									<a class="btn btn-primary" role="button" href="{{ path('app_contrat_show', {'id': contrat.id}) }}">show</a>
+									<a class="btn btn-primary" role="button" href="{{ path('app_contrat_edit', {'id': contrat.id}) }}">edit</a>
 								</td>
 							</tr>
 						{% else %}
@@ -62,5 +61,5 @@
 			</div>
 		</div>
 	</div>
-	<a href="{{ path('app_contrat_new') }}">Create new</a>
+	<a class="btn btn-primary" role="button" href="{{ path('app_contrat_new') }}">Create new</a>
 {% endblock %}

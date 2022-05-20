@@ -16,9 +16,8 @@
                 <th>Nom_Intervention</th>
                 <th>Date_Intervention</th>
                 <th>Type_Intervention</th>
-                <th>Nombre_H_realisé</th>
+                <th>Heures realisées</th>
                 <th>Description</th>
-                <th>Lieu_Intervention</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,10 +30,10 @@
                 <td>{{ fiche_intervention.Type}}</td>
                 <td>{{ fiche_intervention.NombreHRealise }}</td>
                 <td>{{ fiche_intervention.description }}</td>
-                <td>{{ fiche_intervention.LieuIntervention }}</td>
+                
                 <td>
-                    <a href="{{ path('app_intervention_show', {'id': fiche_intervention.id}) }}">show</a>
-                    <a href="{{ path('app_intervention_edit', {'id': fiche_intervention.id}) }}">edit</a>
+                    <a class="btn btn-primary" role="button" href="{{ path('app_intervention_show', {'id': fiche_intervention.id}) }}">show</a>
+                    <a class="btn btn-primary" role="button" href="{{ path('app_intervention_edit', {'id': fiche_intervention.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_intervention_new') }}">Create new</a>
+    <a class="btn btn-primary" role="button" href="{{ path('app_intervention_new') }}">Create new</a>
 {% endblock %}

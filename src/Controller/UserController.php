@@ -22,6 +22,7 @@ class UserController extends AbstractController
         $users = $entityManager
             ->getRepository(User::class)
             ->findAll();
+       
      
         return $this->render('user/index.html.twig', [
             'users' => $users,

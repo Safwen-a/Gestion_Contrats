@@ -24,7 +24,7 @@ class ContratController extends AbstractController
 
         return $this->render('contrat/index.html.twig', [
             'contrats' => $contrats,
-        ]);
+        ]);   
     }
 
     #[Route('/new', name: 'app_contrat_new', methods: ['GET', 'POST'])]
