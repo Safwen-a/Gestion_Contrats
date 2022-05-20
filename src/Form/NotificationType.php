@@ -2,31 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Client;
+use App\Entity\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Security\Core\Security;
 
-
-
-class ClientType extends AbstractType
+class NotificationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-       
         $builder
-            ->add('Name')
-            ->add('Nom_Complet')
-            ->add('pays')
-            ->add('categorie');
+            ->add('message')
+            ->add('date_notification')
+            ->add('readed')
+            ->add('user')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Client::class,
+            'data_class' => Notification::class,
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Entity\Notification;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,12 +18,17 @@ class ClientController extends AbstractController
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
+
         $clients = $entityManager
             ->getRepository(Client::class)
             ->findAll();
 
+        $notification=new NotificationController();
+
+
         return $this->render('client/index.html.twig', [
             'clients' => $clients,
+            //'notifications' => $notification->AfficheNotif($this->getUser(),$entityManager),
         ]);
     }
 
@@ -30,20 +36,24 @@ class ClientController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
+        if  (!$client->getCategorie())   {
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($client);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($client);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            }
 
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->renderForm('client/new.html.twig', [
+                'client' => $client,
+                'form' => $form,
+            ]);
         }
+        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+        
 
-        return $this->renderForm('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]

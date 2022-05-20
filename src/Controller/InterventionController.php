@@ -41,9 +41,7 @@ class InterventionController extends AbstractController
             foreach($expert as $ex){
                 if($ex==$ficheIntervention->getExpert()){
                     $ex->setNombreHFait($ficheIntervention->getNombreHRealise()+$ex->getNombreHFait());
-                    $expert=new Expert();
-                    $expert=$ex;
-                    $entityManager->persist($expert);
+                    $entityManager->persist($ex);
                     break;
                 }
             }
