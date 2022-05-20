@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contrat;
 use App\Entity\Notification;
 use App\Entity\User;
+use App\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,28 +34,25 @@ class DashboardController extends AbstractController
                 $c->setAddToNotification(true);
                 $entityManager->persist($c);
                 $entityManager->persist($notification);
+                $users= $entityManager
+                ->getRepository(User::class)
+                ->findAll();
                 foreach($users as $user){
-                    $user->setUnreadNotification($user->getUnreadNotification()+1);
+                    $user->addNotification($notification);
                     $entityManager->persist($user);
                 }
                 $entityManager->flush();
             }    
         }
         
-        $notification= $entityManager
-            ->getRepository(Notification::class)
-            //->leftJoin('id')
-            //->join('Id','WITH','notification_id')
-            ->findBy(
-                ['readed'=>0,
-                //'user'=>$user
-                ]
-                //[]
-            );
+        
+            $projet = $entityManager
+            ->getRepository(Projet::class)
+            ->findAll();
         
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
-            'notifications' => $notification,
+            'projet'=>$projet
             
         ]);
     }

@@ -55,7 +55,6 @@ class NotificationController extends AbstractController
         return $this->renderForm('notification/new.html.twig', [
             'notification' => $notification,
             'form' => $form,
-            'notifications' => $notification,
 
             
         ]);
@@ -106,6 +105,7 @@ class NotificationController extends AbstractController
                 'readed'=>0,
                 'User'=>$this->getUser(),
             ]);
+        
         
         return $this->render('navbar.html.twig', [
             'notifications' => $notification,
