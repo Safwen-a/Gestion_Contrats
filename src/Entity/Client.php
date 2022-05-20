@@ -21,10 +21,6 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $Nom_Complet;
 
-  
-
-    #[ORM\Column(type: 'text', length: 255)]
-    private $description;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $pays;
@@ -32,7 +28,8 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client_id', targetEntity: Projet::class)]
     private $projets;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'clients')]
+    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'clients',)]
+    #[ORM\JoinColumn(nullable: false)]
     private $categorie;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class)]
@@ -77,19 +74,6 @@ class Client
         return $this;
     }
 
-   
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getPays(): ?string
     {
